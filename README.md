@@ -32,7 +32,7 @@ To use this project, you'll need to have Node.js installed on your computer. Onc
 
 ```sh
 git clone https://github.com/lkubicek1/ast-parser.git
-cd yourrepository
+cd ast-parser
 npm install
 ```
 
