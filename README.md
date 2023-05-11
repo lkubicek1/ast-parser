@@ -82,10 +82,10 @@ This will output the abstract syntax tree (AST) of the expression:
 const { SearchInterpreter } = require('./SearchUtil');
 const interpreter = new SearchInterpreter();
 const data = [
-    {"name": 'hello', age: 1},
-    {"name": 'world', age: 2},
-    {"name": 'goodbye', age: 3},
-    {"name": 'goodnight', age: 4}
+    {"name": 'hello', "age": 1},
+    {"name": 'world', "age": 2},
+    {"name": 'goodbye', "age": 3},
+    {"name": 'goodnight', "age": 4}
 ];
 const filter = interpreter.compile('hello OR world');
 const filteredData = data.filter(filter);
@@ -95,8 +95,8 @@ This will compile the input query to a filter function and execute the filter:
 
 ```json
 [
-    {"name": 'hello', age: 1},
-    {"name": 'world', age: 2}
+    {"name": 'hello', "age": 1},
+    {"name": 'world', "age": 2}
 ]
 ```
 
