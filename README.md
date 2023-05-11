@@ -93,7 +93,7 @@ const filteredData = data.filter(filter);
 
 This will compile the input query to a filter function and execute the filter:
 
-```json
+```javascript
 [
     {"name": 'hello', "age": 1},
     {"name": 'world', "age": 2}
