@@ -3,7 +3,7 @@ const { SearchUtil } = require("./Search");
 
 const searchUtil = new SearchUtil();
 const query = 'hel OR 3';
-let filter = searchUtil.generateFilter(query);
+let filter = searchUtil.compile(query);
 
 let data = [
     {name: 'hello', age: 1},

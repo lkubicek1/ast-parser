@@ -46,7 +46,7 @@ Here's a simple example of how to use the parser:
 const { Parser } = require('./Parser');
 
 let parser = new Parser();
-let ast = parser.parse('hello AND world');
+let ast = parser.translate('hello AND world');
 console.log(ast);
 ```
 
@@ -79,15 +79,15 @@ This will output the abstract syntax tree (AST) of the expression:
 ### Data Filtering
 
 ```javascript
-const { SearchUtil } = require('./SearchUtil');
-const searchUtil = new SearchUtil();
+const { SearchInterpreter } = require('./SearchUtil');
+const interpreter = new SearchInterpreter();
 const data = [
     {name: 'hello', age: 1},
     {name: 'world', age: 2},
     {name: 'goodbye', age: 3},
     {name: 'goodnight', age: 4}
 ];
-const filter = searchUtil.generateFilter('hello OR world');
+const filter = interpreter.compile('hello OR world');
 const filteredData = data.filter(filter);
 ```
 
@@ -99,7 +99,7 @@ The main parts of the project are:
 
 - `Parser.js`: This file includes the `Parser` class, which is responsible for parsing the tokens into an abstract syntax tree.
 
-- `Search.js`: This file includes the `Search` class, which is responsible for parsing an input query into an AST and interpreting the AST to generate a filter function.
+- `Search.js`: This file includes the `SearchInterpreter` class, which is responsible for parsing an input query into an AST and interpreting the AST to generate a filter function.
 
 ## Testing
 

@@ -8,7 +8,7 @@ describe('Parser', () => {
     });
 
     test('should parse a single operand', () => {
-        const ast = parser.parse('hello');
+        const ast = parser.translate('hello');
         expect(ast).toEqual({
             type: 'program',
             body: {
@@ -22,7 +22,7 @@ describe('Parser', () => {
     });
 
     test('should parse an AND expression', () => {
-        const ast = parser.parse('hello AND world');
+        const ast = parser.translate('hello AND world');
         expect(ast).toEqual({
             type: 'program',
             body: {
@@ -47,7 +47,7 @@ describe('Parser', () => {
     });
 
     test('should parse an OR expression', () => {
-        const ast = parser.parse('hello OR world');
+        const ast = parser.translate('hello OR world');
         expect(ast).toEqual({
             type: 'program',
             body: {

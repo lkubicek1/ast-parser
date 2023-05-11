@@ -1,11 +1,11 @@
-const { SearchUtil } = require('../src/Search');
+const { SearchInterpreter } = require('../src/Search');
 
 describe('SearchUtil', () => {
-    let searchUtil;
+    let interpreter;
     let data;
 
     beforeEach(() => {
-        searchUtil = new SearchUtil();
+        interpreter = new SearchInterpreter();
         data = [
             {name: 'hello', age: 1},
             {name: 'world', age: 2},
@@ -15,7 +15,7 @@ describe('SearchUtil', () => {
     });
 
     test('generates correct filter for OR query', () => {
-        const filter = searchUtil.generateFilter('hello OR world');
+        const filter = interpreter.compile('hello OR world');
         const result = data.filter(filter);
         expect(result).toEqual([
             {name: 'hello', age: 1},
@@ -24,13 +24,13 @@ describe('SearchUtil', () => {
     });
 
     test('generates correct filter for AND query', () => {
-        const filter = searchUtil.generateFilter('hello AND world');
+        const filter = interpreter.compile('hello AND world');
         const result = data.filter(filter);
         expect(result).toEqual([]);
     });
 
     test('generates correct filter for single operand', () => {
-        const filter = searchUtil.generateFilter('hello');
+        const filter = interpreter.compile('hello');
         const result = data.filter(filter);
         expect(result).toEqual([
             {name: 'hello', age: 1}
@@ -38,7 +38,7 @@ describe('SearchUtil', () => {
     });
 
     test('handles partial matches', () => {
-        const filter = searchUtil.generateFilter('hel');
+        const filter = interpreter.compile('hel');
         const result = data.filter(filter);
         expect(result).toEqual([
             {name: 'hello', age: 1}
