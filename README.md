@@ -91,6 +91,15 @@ const filter = interpreter.compile('hello OR world');
 const filteredData = data.filter(filter);
 ```
 
+This will compile the input query to a filter function and execute the filter:
+
+```json
+[
+    {name: 'hello', age: 1},
+    {name: 'world', age: 2}
+]
+```
+
 ## Project Structure
 
 The main parts of the project are:
