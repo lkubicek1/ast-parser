@@ -146,7 +146,7 @@ function App() {
                                         <List>
                                             {tokens.map(({type, value}, index) => (
                                                 <ListItem key={index}>
-                                                    <ListItemText primary={`${index}. ${type}: ${value}`}/>
+                                                    <ListItemText primary={`${index + 1}. ${type}: ${value}`}/>
                                                 </ListItem>
                                             ))}
                                         </List>
