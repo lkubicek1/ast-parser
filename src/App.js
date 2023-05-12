@@ -41,7 +41,6 @@ function createRandomUser() {
     return {
         name: faker.internet.userName(),
         email: faker.internet.email(),
-        birthdate: faker.date.birthdate(),
         age: faker.number.int({min: 20, max: 80})
     };
 }
@@ -65,6 +64,8 @@ const nameSorting = (a, b) => {
     }
     return 0;
 };
+
+const COLUMNS = ['name', 'email', 'age'];
 
 function App() {
 
@@ -94,7 +95,7 @@ function App() {
                 setTokens(tokenizedInput);
                 setAst(parsedInput);
 
-                const filter = interpreter.compile(entry);
+                const filter = interpreter.compile(entry, COLUMNS);
                 setData(allData.filter(filter).sort(nameSorting));
 
             }
@@ -145,7 +146,7 @@ function App() {
                                         <List>
                                             {tokens.map(({type, value}, index) => (
                                                 <ListItem key={index}>
-                                                    <ListItemText primary={`${type}: ${value}`}/>
+                                                    <ListItemText primary={`${index}. ${type}: ${value}`}/>
                                                 </ListItem>
                                             ))}
                                         </List>

@@ -36,11 +36,12 @@ export class SearchInterpreter {
      * are expected to be string values that are matched against the properties' values of the objects in the array.
      *
      * @param {string} query - The boolean expression to be parsed and compiled into a filter function.
+     * @param {Array} COLUMNS - An optional array of columns to process for each object filter
      * @returns {Function} - A function that can be used as a filter function on an array of objects.
      */
-    compile(query) {
+    compile(query, COLUMNS = []) {
         const ast = this._parser.translate(query);
-        return this._dig(ast);
+        return this._dig(ast, COLUMNS);
     }
 
     /**
@@ -56,16 +57,17 @@ export class SearchInterpreter {
      *   - If it's an 'operand', it constructs a function that checks if any property of an object matches the operand.
      *
      * @param {Object} ast - The Abstract Syntax Tree to be traversed.
+     * @param {Array} COLUMNS - An optional array of columns to process for each object filter
      * @returns {Function} - A function that can be used as a filter function on an array of objects.
      */
-    _dig(ast) {
+    _dig(ast, COLUMNS) {
         if (ast.type === 'program') {
-            return this._dig(ast.body.expression);
+            return this._dig(ast.body.expression, COLUMNS);
         } else if (ast.type === 'expr') {
-            return this._dig(ast.expression);
+            return this._dig(ast.expression, COLUMNS);
         } else if (ast.type === 'boolean_expr') {
-            const leftFilter = this._dig(ast.left);
-            const rightFilter = this._dig(ast.right);
+            const leftFilter = this._dig(ast.left, COLUMNS);
+            const rightFilter = this._dig(ast.right, COLUMNS);
             if (ast.operator.value.toUpperCase() === 'AND') {
                 return obj => leftFilter(obj) && rightFilter(obj);
             } else if (ast.operator.value.toUpperCase() === 'OR') {
@@ -74,7 +76,16 @@ export class SearchInterpreter {
                 throw new Error(`Unknown operator: ${ast.operator.value}`);
             }
         } else if (ast.type === 'operand') {
-            return obj => Object.values(obj).some(val => val !== null && val !== undefined && val.toString().includes(ast.value));
+            return obj => Object.entries(obj)
+                .filter(([k]) => {
+                    return COLUMNS.includes(k);
+                })
+                .map(([,v]) => v)
+                .filter(v => v !== null && v !== undefined)
+                .map(v => String(v).toLowerCase())
+                .some(v => {
+                    return v.includes(String(ast.value).toLowerCase());
+                });
         } else {
             throw new Error(`Unknown node type: ${ast.type}`);
         }
