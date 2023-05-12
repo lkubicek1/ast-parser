@@ -28,25 +28,25 @@ const Spec = [
     // -------------------------------------------------
     // Parenthesis:
 
-    [/^\(/, 'open_paren'],
-    [/^\)/, 'close_paren'],
+    {regex: /^\(/, type: 'open_paren'},
+    {regex: /^\)/, type: 'close_paren'},
 
     // -------------------------------------------------
     // Boolean Operators (OR,AND):
-    [/^\sOR\s/i, 'or_operator'],
-    [/^\sAND\s/i, 'and_operator'],
+    {regex: /^\sOR\s/i, type: 'or_operator'},
+    {regex: /^\sAND\s/i, type: 'and_operator'},
 
     // -------------------------------------------------
     // Compound Operators (AND):
 
-    [/^(.*?)\sAND\s(.*?)\sOR\s/i, 'operand'],
+    {regex: /^(.*?)\sAND\s(.*?)\sOR\s/i, type: 'operand'},
 
     // -------------------------------------------------
     // Boolean Operands (OR,AND):
-    [/^(.*?)\sOR\s/i, 'operand'],
-    [/^(.*?)\sAND\s/i, 'operand'],
+    {regex: /^(.*?)\sOR\s/i, type: 'operand'},
+    {regex: /^(.*?)\sAND\s/i, type: 'operand'},
 
-    [/(.*)/, 'operand']
+    {regex: /(.*)/, type: 'operand'}
 ];
 
 /**
@@ -71,47 +71,56 @@ const Spec = [
  * @class Tokenizer
  */
 class Tokenizer {
-    /**
-     * Initializes the string.
-     */
-    init(string) {
+
+    init() {
+        this._cursor = 0;
+    }
+
+    tokenize(string) {
         this._string = string;
         this._cursor = 0;
+        const tokens = [];
+        while(this._hasMoreTokens()) {
+            const token = this._getNextToken();
+            if(token == null) break;
+            tokens.push(token);
+        }
+        return tokens;
     }
 
     /**
      * Check if we still have more tokens.
      */
-    hasMoreTokens() {
+    _hasMoreTokens() {
         return this._cursor < this._string.length;
     }
 
     /**
      * Obtains next token.
      */
-    getNextToken() {
-        if (!this.hasMoreTokens()) {
+    _getNextToken() {
+        if (!this._hasMoreTokens()) {
             return null;
         }
 
         const string = this._string.slice(this._cursor);
 
-        for (const [regex, tokenType] of Spec) {
-            const tokenValue = this._match(regex, string);
+        for (const {regex, type} of Spec) {
+            const value = this._match(regex, string);
 
             // Couldn't match the rule, so continue.
-            if (tokenValue == null) {
+            if (value == null) {
                 continue;
             }
 
             // Should skip any null token specs
-            if (tokenType == null) {
-                return this.getNextToken();
+            if (type == null) {
+                return this._getNextToken();
             }
 
             return {
-                type: tokenType,
-                value: tokenValue
+                type,
+                value
             };
         }
 
@@ -143,13 +152,13 @@ class Tokenizer {
     _match(regex, string) {
         const matched = regex.exec(string);
 
-        if(matched == null) {
+        if (matched == null) {
             return null;
         }
 
         const index = matched.length > 1 ? 1 : 0;
 
-        if(!matched[index] || matched[index].length === 0) {
+        if (!matched[index] || matched[index].length === 0) {
             return null;
         }
 

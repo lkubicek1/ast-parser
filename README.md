@@ -1,22 +1,21 @@
+# Simple Boolean Expression Parser and UI
 
-# Simple Boolean Expression Parser
-
-This project includes a simple recursive descent parser for boolean expressions. It's written in JavaScript and parses expressions like 'hello AND world'.
+This project includes a simple recursive descent parser for boolean expressions, and a React-based user interface to demonstrate the parser in action. The parser is written in JavaScript and parses expressions like 'hello AND world', and the user interface allows you to enter boolean expressions, see the resulting tokens and view the generated abstract syntax tree (AST).
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2. [Features](#features)
-2. [Getting Started](#getting-started)
-3. [Usage](#usage)
-4. [Project Structure](#project-structure)
-5. [Contributing](#contributing)
-6. [License](#license)
+3. [Getting Started](#getting-started)
+4. [Usage](#usage)
+5. [Demonstration UI](#demonstration-ui)
+6. [Project Structure](#project-structure)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Introduction
 
-The purpose of this project is to practice and explore the theory of parsing and abstract syntax trees. The parser uses a recursive descent parsing algorithm and handles single-line boolean expressions.
-
+The purpose of this project is to research and explore the theory of parsing, abstract syntax trees and compiler theory. The parser uses a recursive descent parsing algorithm and handles single-line boolean expressions. The user interface is built with React and Material-UI, and visualizes the parsing process in a user-friendly way.
 
 ## Features
 
@@ -24,19 +23,24 @@ The purpose of this project is to practice and explore the theory of parsing and
 - Syntax Analysis (Parsing)
 - AST generation
 - Data filtering based on boolean expressions
-
+- Interactive UI to visualize tokens and AST
 
 ## Getting Started
 
-To use this project, you'll need to have Node.js installed on your computer. Once you've got that, you can clone the repository and install the dependencies:
+To use this project, you'll need to have Node.js and npm installed on your computer. Once you've got that, you can clone the repository and install the dependencies:
 
-```sh
+```shell
 git clone https://github.com/lkubicek1/ast-parser.git
 cd ast-parser
 npm install
 ```
 
 ## Usage
+
+To start the React app, use the start script:
+```shell
+npm start
+```
 
 ### Parsing
 
@@ -102,17 +106,23 @@ This will compile the input query to a filter function and execute the filter:
 
 ## Project Structure
 
-The main parts of the project are:
+The main parts of the project are found in the ```src/services``` directory:
 
 - `Tokenizer.js`: This file includes the `Tokenizer` class, which is responsible for breaking the input into tokens.
 
 - `Parser.js`: This file includes the `Parser` class, which is responsible for parsing the tokens into an abstract syntax tree.
 
-- `Search.js`: This file includes the `SearchInterpreter` class, which is responsible for parsing an input query into an AST and interpreting the AST to generate a filter function.
+- `SearchInterpreter.js`: This file includes the `SearchInterpreter` class, which is responsible for parsing an input query into an AST and interpreting the AST to generate a filter function.
 
 ## Testing
 
 This project uses Jest for testing. Run npm test to execute the test suite.
+
+## Demonstration UI
+
+The React application provides an interactive interface for the parser. The user can input a boolean expression, which is parsed in real-time. The resulting tokens and AST are displayed side-by-side.
+
+You can view a live demo of the application at [https://lkubicek1.github.io/ast-parser](https://lkubicek1.github.io/ast-parser)
 
 ## Contributing
 

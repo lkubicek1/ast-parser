@@ -1,4 +1,4 @@
-const { SearchInterpreter } = require('../src/Search');
+import { SearchInterpreter } from '../SearchInterpreter';
 
 describe('SearchUtil', () => {
     let interpreter;

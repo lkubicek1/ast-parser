@@ -1,4 +1,4 @@
-const {Parser} = require('./Parser');
+import {Parser} from './Parser';
 
 /**
  * SearchInterpreter: Boolean Expression Interpreter

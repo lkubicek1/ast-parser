@@ -1,4 +1,4 @@
-const {Tokenizer} = require('./Tokenizer');
+import {Tokenizer} from './Tokenizer';
 
 /**
  * Parser: Recursive Descent Implementation
@@ -22,7 +22,7 @@ const {Tokenizer} = require('./Tokenizer');
  *
  * @class Parser
  */
-class Parser {
+export class Parser {
     /**
      * Initializes the parser.
      */
@@ -49,13 +49,14 @@ class Parser {
      * @returns {Object} - The root node of the AST representing the boolean expression.
      */
     translate(string) {
-        this._tokenizer.init(string);
+        this._tokenizer.init();
+        this._tokens = this._tokenizer.tokenize(string);
 
-        // Prime the tokenizer to obtain the first
+        // Prime the tokens to obtain the first
         // token which is our lookahead.  The lookahead is
         // used for predictive parsing.
-
-        this._lookahead = this._tokenizer.getNextToken();
+        this._tokens = this._tokenizer.tokenize(string);
+        this._lookahead = this._getNextToken();
 
         // Parse recursively starting from the main
         // entry point, the Program:
@@ -108,9 +109,8 @@ class Parser {
         switch (this._lookahead.type) {
             case 'operand': return this.Operand();
             case 'open_paren': return this.ParenthesizedExpression();
+            default: throw new SyntaxError(`OperandNode: unexpected operand type`);
         }
-
-        throw new SyntaxError(`OperandNode: unexpected operand type`);
     }
 
     /**
@@ -226,13 +226,13 @@ class Parser {
         }
 
         // Advance to next token.
-        this._lookahead = this._tokenizer.getNextToken();
+        this._lookahead = this._getNextToken();
 
         return token;
     }
 
-}
+    _getNextToken() {
+        return this._tokens.shift();
+    }
 
-module.exports = {
-    Parser,
 }

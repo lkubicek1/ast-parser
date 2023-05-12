@@ -1,17 +1,17 @@
-// example usage
-const { SearchUtil } = require("./Search");
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const searchUtil = new SearchUtil();
-const query = 'hel OR 3';
-let filter = searchUtil.compile(query);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-let data = [
-    {name: 'hello', age: 1},
-    {name: 'world', age: 2},
-    {name: 'goodbye', age: 3},
-    {name: null, age: 6},
-    {name: 'goodnight', age: 4}
-];
-
-let filteredData = data.filter(filter);
-console.log(filteredData);  // Outputs: [ { name: 'hello' }, { name: 'world' } ]
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
