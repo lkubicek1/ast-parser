@@ -70,7 +70,7 @@ const Spec = [
  *
  * @class Tokenizer
  */
-class Tokenizer {
+export class Tokenizer {
 
     init() {
         this._cursor = 0;
@@ -167,7 +167,3 @@ class Tokenizer {
         return value.trim();
     }
 }
-
-module.exports = {
-    Tokenizer,
-};

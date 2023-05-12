@@ -20,7 +20,7 @@ import {Parser} from './Parser';
  *
  * @class SearchInterpreter
  */
-class SearchInterpreter {
+export class SearchInterpreter {
 
     constructor() {
         this._parser = new Parser();
@@ -79,9 +79,4 @@ class SearchInterpreter {
             throw new Error(`Unknown node type: ${ast.type}`);
         }
     }
-}
-
-
-module.exports = {
-    SearchInterpreter,
 }
