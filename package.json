@@ -4,18 +4,20 @@
   "private": true,
   "homepage": "https://lkubicek1.github.io/ast-parser",
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^9.0.0",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "clsx": "^2.1.1",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
+    "@tailwindcss/vite": "^4.1.14",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^6.0.1",
     "jsdom": "^29.0.2",
+    "tailwindcss": "^4.1.14",
     "vite": "^8.0.7",
     "vitest": "^4.1.3"
   },
