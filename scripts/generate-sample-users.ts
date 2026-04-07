@@ -8,18 +8,24 @@ const SAMPLE_SEED = 42;
 
 faker.seed(SAMPLE_SEED);
 
-function toAscii(value) {
+type SampleUser = {
+  name: string;
+  email: string;
+  age: number;
+};
+
+function toAscii(value: string): string {
   return value.normalize('NFKD').replace(/[^\x00-\x7F]/g, '');
 }
 
-function toEmailHandle(value) {
+function toEmailHandle(value: string): string {
   return toAscii(value)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '.')
     .replace(/^\.+|\.+$/g, '') || 'user';
 }
 
-function createSampleUser(index) {
+function createSampleUser(index: number): SampleUser {
   const firstName = toAscii(faker.person.firstName());
   const lastName = toAscii(faker.person.lastName());
   const name = `${firstName} ${lastName}`;
