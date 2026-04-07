@@ -49,18 +49,16 @@ export class Parser {
      * @returns {Object} - The root node of the AST representing the boolean expression.
      */
     translate(string) {
-        this._tokenizer.init();
-        this._tokens = this._tokenizer.tokenize(string);
-
-        // Prime the tokens to obtain the first
-        // token which is our lookahead.  The lookahead is
-        // used for predictive parsing.
         this._tokens = this._tokenizer.tokenize(string);
         this._lookahead = this._getNextToken();
 
-        // Parse recursively starting from the main
-        // entry point, the Program:
-        return this.Program();
+        const program = this.Program();
+
+        if (this._lookahead != null) {
+            throw new SyntaxError(`Unexpected token: "${this._lookahead.value}"`);
+        }
+
+        return program;
     }
 
     /**

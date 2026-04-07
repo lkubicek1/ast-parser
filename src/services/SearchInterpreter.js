@@ -41,7 +41,9 @@ export class SearchInterpreter {
      */
     compile(query, COLUMNS = []) {
         const ast = this._parser.translate(query);
-        return this._dig(ast, COLUMNS);
+        const activeColumns = COLUMNS.length > 0 ? new Set(COLUMNS) : null;
+
+        return this._dig(ast, activeColumns);
     }
 
     /**
@@ -78,7 +80,7 @@ export class SearchInterpreter {
         } else if (ast.type === 'operand') {
             return obj => Object.entries(obj)
                 .filter(([k]) => {
-                    return COLUMNS.includes(k);
+                    return !COLUMNS || COLUMNS.has(k);
                 })
                 .map(([,v]) => v)
                 .filter(v => v !== null && v !== undefined)

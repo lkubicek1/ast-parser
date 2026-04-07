@@ -1,6 +1,6 @@
 import { SearchInterpreter } from '../SearchInterpreter';
 
-describe('SearchUtil', () => {
+describe('SearchInterpreter', () => {
     let interpreter;
     let data;
 
@@ -43,5 +43,12 @@ describe('SearchUtil', () => {
         expect(result).toEqual([
             {name: 'hello', age: 1}
         ]);
+    });
+
+    test('supports restricting the evaluated columns', () => {
+        const filter = interpreter.compile('2', ['name']);
+        const result = data.filter(filter);
+
+        expect(result).toEqual([]);
     });
 });

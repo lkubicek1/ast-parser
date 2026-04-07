@@ -4,36 +4,29 @@
   "private": true,
   "homepage": "https://lkubicek1.github.io/ast-parser",
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@faker-js/faker": "^8.0.0",
-    "@material-ui/core": "^4.12.4",
-    "@mui/material": "^5.13.0",
-    "@mui/styles": "^5.12.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "faker": "^6.6.6",
-    "gh-pages": "^5.0.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.0.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.2",
+    "vite": "^8.0.7",
+    "vitest": "^4.1.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "generate:data": "node scripts/generate-sample-users.mjs",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "browserslist": {
     "production": [
